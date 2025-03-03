@@ -1,0 +1,19 @@
+{
+  "name": "admin_employees_auth",
+  "module": "index.ts",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/express": "^5.0.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "express": "^5.0.1"
+  },
+  "scripts": {
+    "start": "bun run index.ts"
+  }
+}
