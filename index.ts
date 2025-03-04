@@ -10,3 +10,6 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+
+// Exportar la app para que Vercel la reconozca
+export default app;
