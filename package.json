@@ -4,10 +4,11 @@
   "devDependencies": {
     "@types/bun": "latest",
     "@types/express": "^5.0.0",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "esbuild": "^0.25.1"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.8.2"
   },
   "private": true,
   "type": "module",
@@ -15,6 +16,8 @@
     "express": "^5.0.1"
   },
   "scripts": {
-    "start": "bun run index.ts"
-  }
+    "start": "bun run index.ts",
+    "build": "esbuild index.ts --bundle --outdir=dist --platform=node --format=esm"
+  },
+  "main": "index.ts"
 }
