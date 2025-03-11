@@ -2,13 +2,9 @@
   "name": "admin_employees_auth",
   "module": "index.ts",
   "devDependencies": {
-    "@types/bun": "latest",
     "@types/express": "^5.0.0",
-    "dotenv": "^16.4.7",
-    "esbuild": "^0.25.1"
-  },
-  "peerDependencies": {
-    "typescript": "^5.8.2"
+    "@types/node": "^22.13.10",
+    "dotenv": "^16.4.7"
   },
   "private": true,
   "type": "module",
@@ -16,8 +12,7 @@
     "express": "^5.0.1"
   },
   "scripts": {
-    "start": "bun run dist/index.js",
-    "build": "esbuild index.ts --bundle --outdir=dist --platform=node --format=esm"
+    "start": "node index.mjs"
   },
-  "main": "index.ts"
+  "main": "index.mjs"
 }
