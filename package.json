@@ -16,7 +16,7 @@
     "express": "^5.0.1"
   },
   "scripts": {
-    "start": "bun run index.ts",
+    "start": "bun run dist/index.js",
     "build": "esbuild index.ts --bundle --outdir=dist --platform=node --format=esm"
   },
   "main": "index.ts"
