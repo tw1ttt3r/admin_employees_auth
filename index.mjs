@@ -1,5 +1,5 @@
 import express from "express";
-import { PORT } from "./config/vars";
+import { PORT } from "./config/vars.mjs";
 
 const app = express();
 
