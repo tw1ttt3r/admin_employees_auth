@@ -14,5 +14,8 @@
   "scripts": {
     "start": "node index.mjs"
   },
-  "main": "index.mjs"
+  "main": "index.mjs",
+  "imports": {
+    "#config/*": ["./config/*"]
+  }
 }
