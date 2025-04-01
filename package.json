@@ -9,13 +9,24 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "express": "^5.0.1"
+    "@libsql/client": "^0.15.1",
+    "cors": "^2.8.5",
+    "express": "^5.0.1",
+    "helmet": "^8.1.0"
   },
   "scripts": {
     "start": "node index.mjs"
   },
   "main": "index.mjs",
   "imports": {
-    "#config/*": ["./config/*"]
+    "#config/*": [
+      "./config/*"
+    ],
+    "#db/*": [
+      "./database/*"
+    ],
+    "#class/*": [
+      "./classes/*"
+    ]
   }
 }
