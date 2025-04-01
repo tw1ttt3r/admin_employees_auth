@@ -1,5 +1,8 @@
-const HOME = '/';
+const ROUTES = {
+  HOME: '/',
+  WILDCARD: '*'
+}
 
 export {
-  HOME
+  ROUTES
 }
