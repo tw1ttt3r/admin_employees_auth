@@ -7,7 +7,7 @@ const {
   DB_URL,
   DB_TOKEN,
   WHITELIST,
-  PUBLIC_ROUTES
+  EXCLUDED_ROUTES
 } = process.env;
 
 export {
@@ -15,5 +15,5 @@ export {
   DB_URL,
   DB_TOKEN,
   WHITELIST,
-  PUBLIC_ROUTES
+  EXCLUDED_ROUTES
 };
