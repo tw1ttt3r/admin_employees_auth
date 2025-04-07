@@ -1,6 +1,7 @@
 const ROUTES = {
   HOME: '/',
-  WILDCARD: '*'
+  WILDCARD: '*',
+  LOGIN: '/login'
 }
 
 export {
