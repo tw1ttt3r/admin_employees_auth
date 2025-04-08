@@ -1,13 +1,15 @@
 import { Database, Auth } from "#class/index.mjs";
-import { STATUSRESPONSE } from "#config/index.mjs";
+import { STATUSRESPONSE, ROLES_SERVICE, VALUE_PROTECTED_VERIFY } from "#config/index.mjs";
 
 class Queries extends Database {
 
   #params = [];
   #query = '';
+  #utils = null;
 
-  constructor() {
+  constructor(utils) {
     super();
+    this.#utils = utils;
   }
 
   async login({ user, pass }) {
@@ -24,13 +26,16 @@ class Queries extends Database {
         return { status: STATUSRESPONSE.NOTEXIST }
       }
 
-      // TODO consumir roles_service para obtener roles del usuario
+      const roles = await this.#utils.fetch(`${ROLES_SERVICE}/getroles`, { user, key_validator: VALUE_PROTECTED_VERIFY } ,'POST');
+
+      if (!roles) {
+        throw Error('Roles Not Found!');
+      }
 
       const auth = new Auth();
+      const token = auth.create(user, roles);
 
-      const token = auth.create(user);
-
-      return { data: { token }, status: STATUSRESPONSE.SUCCESS }
+      return { data: { token, roles }, status: STATUSRESPONSE.SUCCESS }
 
     } catch(e) {
       this.catch(this.login.name, e, this.#query, this.#params);
