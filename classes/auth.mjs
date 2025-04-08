@@ -12,24 +12,23 @@ class Auth {
     this.#secret = new TextEncoder().encode(TOKEN_KEY_SIGN);
   }
 
-  async create(user) {
+  async create(user, roles) {
     try {
-      const token = await new SignJWT({ user,  })
+      const token = await new SignJWT({ user, roles })
         .setProtectedHeader({ alg: 'HS256', verifier: VALUE_PROTECTED_VERIFY })
         .setIssuedAt()
         .sign(this.#secret);
   
       return token;
     } catch (error) {
-      throw new Error('JWT no generado');
+      throw new Error('JWT no generado', error);
     }
   }
 
   async verify(token) {
     try {
-      const { payload, protectedHeader } = await jwtVerify(token, this.#secret)
+      const { protectedHeader } = await jwtVerify(token, this.#secret);
       
-      // Opcional: puedes revisar el alg si quieres
       if (protectedHeader.verifier === VALUE_PROTECTED_VERIFY) {
         throw new Error('JWT no válido');
       }
