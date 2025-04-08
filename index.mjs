@@ -5,6 +5,9 @@ import { OPTIONS } from "#config/whitelist.mjs";
 import { PORT, ROUTES, STATUSHTTP, EXCLUDED_ROUTES } from "#config/index.mjs";
 import { Utils } from "#class/utils.mjs";
 import { Queries } from "#class/index.mjs";
+// exponemos crypto globalmente
+import { webcrypto } from 'crypto'
+globalThis.crypto = webcrypto
 
 const app = express();
 app.use(express.json());
@@ -30,7 +33,7 @@ app.post(ROUTES.LOGIN, async (req, res) => {
       res.status(STATUSHTTP.BADREQUEST).json({ msg: "Credential missings" }).send();
       return
     }
-    const conn = new Queries();
+    const conn = new Queries(utils);
     const r = await conn.login({ ...req.body });
   
     res.json({ ...r }).send();
