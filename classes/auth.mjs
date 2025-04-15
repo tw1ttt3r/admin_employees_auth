@@ -1,5 +1,6 @@
 import { SignJWT, jwtVerify } from "jose";
-import { TOKEN_KEY_SIGN, VALUE_PROTECTED_VERIFY } from "#config/index.mjs";
+import { TOKEN_KEY_SIGN, VALUE_PROTECTED_VERIFY, SALTROUNDS } from "#config/index.mjs";
+import bcrypt from "bcrypt";
 
 class Auth {
 
@@ -38,6 +39,17 @@ class Auth {
       throw new Error('JWT no válido')
     }
   }
+
+  async createPassHash(password) {
+    const saltConf = await bcrypt.genSalt(Number(SALTROUNDS));
+    const hashPass = await bcrypt.hash(password, saltConf);
+    return hashPass;
+  };
+  
+  async comparePass(password, hashPass){
+    const compare = await bcrypt.compare(password, hashPass);
+    return compare
+  };
 
 }
 

@@ -1,14 +1,19 @@
 import { createClient } from "@libsql/client";
 import { DB_TOKEN, DB_URL } from "#config/vars.mjs";
 import { Log } from "#class/log.mjs";
-import { USUARIOS, TABLES } from "#db/index.mjs";
+import { USUARIOS, TABLES, DATOSPERSONALES } from "#db/index.mjs";
 
 
 class Database extends Log {
   client = null;
 
   #queries = {
-    isValidCredentials: `SELECT COUNT(${USUARIOS.ALL}) as EXIST FROM ${TABLES.usuarios} WHERE ${USUARIOS.USER}=? AND ${USUARIOS.PASS}=?`
+    isValidCredentials: `SELECT COUNT(${USUARIOS.ALL}) as EXIST FROM ${TABLES.usuarios} WHERE ${USUARIOS.USER}= ?`,
+    registerUser: `INSERT INTO ${TABLES.usuarios}(${USUARIOS.USER},${USUARIOS.PASS},${USUARIOS.ESTATUS}) VALUES(?,?,1)`,
+    registerUserData: `INSERT INTO ${TABLES.datos_personales}(${DATOSPERSONALES.IDUSUARIO},${DATOSPERSONALES.NOMBRE},${DATOSPERSONALES.APPATERNO},${DATOSPERSONALES.APMATERNO},${DATOSPERSONALES.CORREO},${DATOSPERSONALES.TELEFONO},${DATOSPERSONALES.ALTA}) VALUES(?,?,?,?,?,?,1)`,
+    getHashPass: `SELECT ${USUARIOS.PASS} PASSWORD FROM ${TABLES.usuarios} WHERE ${USUARIOS.USER} = ?`,
+    updatePass: `UPDATE ${TABLES.usuarios} SET ${USUARIOS.PASS} = ? WHERE ${USUARIOS.USER} = ?`,
+    updateStatusUser: `UPDATE ${TABLES.usuarios} SET ${USUARIOS.ESTATUS} = ? WHERE ${USUARIOS.USER} = ?`
   };
 
   constructor() {
