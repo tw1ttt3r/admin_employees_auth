@@ -42,6 +42,70 @@ app.post(ROUTES.LOGIN, async (req, res) => {
   }
 });
 
+app.post(ROUTES.REGISTER, async(req, res) => {
+  try {
+    if (utils.validateRequestBody(req.body, ['user','pass','nombre','ap_paterno','ap_materno','correo','telefono'])) {
+      res.status(STATUSHTTP.BADREQUEST).json({ msg: "Data missings" }).send();
+      return
+    }
+    const conn = new Queries(utils);
+    const r = await conn.registerUser({ ...req.body });
+  
+    res.json({ ...r }).send();
+
+  } catch(error) {
+    res.status(STATUSHTTP.BADREQUEST).json({ data: 'Registro no exitoso' }).send();
+  }
+});
+
+app.post(ROUTES.CHANGEPASS, async(req, res) => {
+  try {
+    if (utils.validateRequestBody(req.body, ['user','pass','newpass'])) {
+      res.status(STATUSHTTP.BADREQUEST).json({ msg: "Data missings" }).send();
+      return
+    }
+    const conn = new Queries(utils);
+    const r = await conn.registerUser({ ...req.body });
+  
+    res.json({ ...r }).send();
+
+  } catch(error) {
+    res.status(STATUSHTTP.BADREQUEST).json({ data: 'Registro no exitoso' }).send();
+  }
+});
+
+app.put(ROUTES.CHANGESTATUSDISABLED, async(req, res) => {
+  try {
+    if (utils.validateRequestBody(req.body, ['user'])) {
+      res.status(STATUSHTTP.BADREQUEST).json({ msg: "Data missings" }).send();
+      return
+    }
+    const conn = new Queries(utils);
+    const r = await conn.changestatus({ ...req.body, status: 0 });
+  
+    res.json({ ...r }).send();
+
+  } catch(error) {
+    res.status(STATUSHTTP.BADREQUEST).json({ data: 'Registro no exitoso' }).send();
+  }
+});
+
+app.put(ROUTES.CHANGESTATUSENABLED, async(req, res) => {
+  try {
+    if (utils.validateRequestBody(req.body, ['user'])) {
+      res.status(STATUSHTTP.BADREQUEST).json({ msg: "Data missings" }).send();
+      return
+    }
+    const conn = new Queries(utils);
+    const r = await conn.changestatus({ ...req.body, status: 1 });
+  
+    res.json({ ...r }).send();
+
+  } catch(error) {
+    res.status(STATUSHTTP.BADREQUEST).json({ data: 'Registro no exitoso' }).send();
+  }
+});
+
 // /* WILDCARD */
 app.use((_, res) => {
   res.status(STATUSHTTP.NOTIMPLEMENTED).json({ response: '...' }).send();
