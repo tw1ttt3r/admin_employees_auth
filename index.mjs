@@ -2,22 +2,24 @@ import express from "express";
 import helmet from "helmet";
 import cors from "cors";
 import { OPTIONS } from "#config/whitelist.mjs";
-import { PORT, ROUTES, STATUSHTTP, EXCLUDED_ROUTES } from "#config/index.mjs";
+import { PORT, ROUTES, STATUSHTTP, EXCLUDED_ROUTES, CORS } from "#config/index.mjs";
 import { Utils } from "#class/utils.mjs";
 import { Queries } from "#class/index.mjs";
 
 const app = express();
 app.use(express.json());
 app.use(helmet());
-app.use((req, res, next) => {
-  const noCorsRoutes = [...EXCLUDED_ROUTES.split(',')]; // Rutas excluidas de CORS
-
-  if (noCorsRoutes.includes(req.path)) {
-    return next();
-  }
-
-  cors(OPTIONS)(req, res, next);
-});
+if (CORS === "true") {
+  app.use((req, res, next) => {
+    const noCorsRoutes = [...EXCLUDED_ROUTES.split(',')]; // Rutas excluidas de CORS
+  
+    if (noCorsRoutes.includes(req.path)) {
+      return next();
+    }
+  
+    cors(OPTIONS)(req, res, next);
+  });
+}
 const utils = new Utils();
 
 app.get(ROUTES.HOME, (_, res) => {
