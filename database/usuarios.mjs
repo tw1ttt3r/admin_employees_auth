@@ -1,10 +1,10 @@
 import { METADATA } from "#db/metadata.mjs";
 
 const USUARIOS = {
-  IDUSUARIO: 'id_usuario',
-  USER: 'user',
-  PASS: 'pass',
-  ESTATUS: 'estatus',
+  IDUSUARIO: 'ID_USUARIO',
+  USER: 'USER',
+  PASS: 'PASS',
+  ESTATUS: 'ESTATUS',
   ...METADATA
 }
 
