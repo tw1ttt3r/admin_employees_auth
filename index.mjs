@@ -5,9 +5,6 @@ import { OPTIONS } from "#config/whitelist.mjs";
 import { PORT, ROUTES, STATUSHTTP, EXCLUDED_ROUTES } from "#config/index.mjs";
 import { Utils } from "#class/utils.mjs";
 import { Queries } from "#class/index.mjs";
-// exponemos crypto globalmente
-import { webcrypto } from 'crypto'
-globalThis.crypto = webcrypto
 
 const app = express();
 app.use(express.json());
